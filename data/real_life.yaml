@@ -1,0 +1,100 @@
+TOUR OF DUTY:
+    Module Cost: 700
+    Module Cost Extra:
+        Inner Sphere: 100
+        Clan: 300
+    Description: "In the war-torn BattleTech universe, soldiers and warriors risk their lives every day on the battlefield. Whether they do so for lord or Clan, for country or money, their lives are often spent in long, dull stretches on guard - punctuated by the relentless panic that only incoming fire can bring."
+    Prerequisites:
+        Military Skill Field:
+            amount: 1
+    Age: 3
+    Fixed XP:
+        Traits:
+            Connections: 25
+            CHOICE:
+                limit: 1
+                value: 100
+                list: [ 'Equipped', 'Vehicle' ]
+        Skills:
+            Career/Soldier: 50
+            Martial Arts: 40
+            Navigation/Any: 40
+            Protocol/Affiliation: 40
+    Flexible XP: 100
+    Periphery:
+        Attributes:
+            EXTRA:
+                limit: 1
+                value: 50
+        Traits:
+            Enemy: -50
+            Toughness: 50
+        Skills:
+            Interest/Any: 20
+            Leadership: 15
+            Medtech: 30
+            Negotiation: 25
+            Perception: 15
+            EXTRA:
+                limit: 6
+                value: 25
+                requirement: Military Field
+    Inner Sphere:
+        Attributes:
+            EXTRA:
+                limit: 2
+                value: 50
+        Traits:
+            Rank: 50
+            CHOICE:
+                limit: 1
+                value: 100
+                list: [ 'Equipped', 'Vehicle' ]
+            CHOICE2:
+                limit: 1
+                value: -50
+                list: [ 'Compulsion/Any Addiction', 'Unlucky']
+        Skills:
+            Language/Affiliation: 15
+            Leadership: 15
+            Martial Arts: 10
+            Medtech: 20
+            Perception: 20
+            EXTRA:
+                limit: 7
+                value: 25
+                requirement: Military Field
+
+    Clan:
+        Attributes:
+            EXTRA:
+                limit: 2
+                value: 75
+        Traits:
+            Bloodname: 50
+            Combat Sense: 75
+            Enemy: -75
+            CHOICE:
+                limit: 1
+                value: 75
+                list: [ 'Equipped', 'Vehicle' ]
+        Skills:
+            Communications/Any: 15
+            Computers: 15
+            Interest/Any: 20
+            Perception: 20
+            Technician/Any: 10
+            EXTRA:
+                limit: 10
+                value: 25
+                requirement: Military Field
+
+
+
+
+
+
+
+
+
+

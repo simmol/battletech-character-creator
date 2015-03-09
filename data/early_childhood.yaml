@@ -1,0 +1,18 @@
+BLUE COLLAR:
+    Module Cost: 210
+    Description: "The common folk of most thriving commercial or industrialized worlds, characters from blue collar families have humble beginnings, but usually receive a solid education and even some vocational insights."
+    Prerequisites: None
+    Fixed XP:
+        Attributes:
+            STR: 45
+            BOD: 50
+            DEX: 50
+            INT: 25
+            WIL: -10
+            CHA: -10
+        Skills:
+            Career/Any: 10
+            Interest/Any2: 5
+    Flexible XPs:
+        value: 10
+        limit: 4

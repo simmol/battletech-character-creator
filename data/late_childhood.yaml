@@ -1,0 +1,41 @@
+SPACER FAMILY:
+    Module Cost: 490
+    Description: "The child of a spacer family is raised in the low-gravity and sterilized-atmosphere world of DropShips and JumpShips, rarely setting foot on planets long enough to take root. Characters from this background tend to be a little more insular toward outsiders, but are in their element when out in the \"black sea\"."
+    Prerequisites:
+        Attributes:
+            RFL: 4
+            DEX: 4
+            INT: 4
+        Traits:
+            TDS: False
+        Skills:
+            Zero-G Operations: 2
+    Fixed XP:
+        Attributes:
+            RFL: 40
+            DEX: 30
+            BOD: -20
+            STR: -20
+        Traits:
+            Equipped: 20
+            G-Tolerance: 40
+            Natural Aptitude/Zero-G Operations: 20
+            Introvert: -25
+        Skills:
+            Career/Ship Crew: 30
+            Communications/Conventional: 20
+            Computers: 20
+            Gunnery/Spacecraft: 10
+            Interest/Any: 15
+            Language/Any: 15
+            Navigation/Space: 20
+            Perception: 15
+            Piloting/Spacecraft: 15
+            Sensor Operations: 15
+            Technician/Aeronautics: 20
+            Technician/Electronic: 20
+            Zero-G Operations: 15
+    Flexible XP:
+        value: 75
+        skills: 100
+
