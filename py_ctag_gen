@@ -1,0 +1,1 @@
+ctags-exuberant -R --languages=python --langmap=python:.py .
