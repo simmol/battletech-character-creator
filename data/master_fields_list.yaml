@@ -1,0 +1,57 @@
+Basic Training ( Naval ):
+    Military: True
+    cost: 180
+    rebate: 36
+    requires:
+        Attributes:
+            INT: 4
+            RFL: 3
+        Traits:
+            rank: 1
+            TDS: None
+    Fixed XP:
+        Skills:
+            CHOICE:
+                value: 30
+                limit: 1
+                list: ['Career/Pilot', 'Career/Ship Crew']
+            Martial Arts: 30
+            MedTech: 30
+            Navigation/Space: 30
+            Small Arms: 30
+            Zero-G Operations: 30
+
+
+Technician/Military:
+    Military: True
+    cost: 180
+    rebate: 36
+    requires:
+        Attributes:
+            INT: 3
+            DEX: 3
+    Fixed XP:
+        Skills:
+            Appraisal: 30
+            Career/Technician: 30
+            Technician/Electronics: 30
+            Technician/Mechanical: 30
+            Technician/Nuclear: 30
+            Technician/Weapons: 30
+
+
+Technician/Vehicle:
+    Military: True
+    Civilian: True
+    cost: 120
+    rebate: 24
+    requires:
+        Attributes:
+            INT: 4
+    Fixed XP:
+        Skills:
+            Computers: 30
+            Technician/Electronics: 30
+            Technician/Mechanical: 30
+            Technician/Nuclear: 30
+

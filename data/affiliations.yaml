@@ -1,7 +1,7 @@
 Terran:
     category: Inner Sphere
     Description: "In the centuries since humankind took to the stars, Terra has been seen as both benevolent mother and cruel oppressor of the hundreds of worlds humanity now calls home. Yet whatever their histories, every culture in human-settled space can trace its origins to Terra. Though isolated for hundreds of years under the authority of ComStar, Terra - the center of the Inner Sphere, the crown jewel of the Star League, and the most coveted world in all of known space to the Clans has thrived as an island of high culture and technology. The people of Terra ( and their solar system neighbors on Luna, Mars, Venus, Titan and elsewhere ) owe their allegiance to no Great House or Clan, and were spared the horrors of the Succession Wars by the grace of their ComStar benefactors. This fact, coupled with Terra`s place as humankind`s ancient home, has engendered a sense of superiority over the \"colonials\" beyond Terran space. This arrogance and aloofness - born of prosperity, self-perceived enlightenment and a history no other world can possibly match - verges on xenophobia. To the people of the Terran system, the universe has revolved and always will revolve around them."
-    Module Cost: 240
+    cost: 240
     Primary Language: Any
     Secondary Language: Any
     Fixed XP:
@@ -20,29 +20,30 @@ Terran:
             Language/Any: 15
     Sub-Affiliations:
         Belter:
-            Attributes:
-                STR: -25
-                BOD: -25
-                EXTRA:
-                    value: 100
-                    limit: 1
-                    exception: [ 'CHA', 'EDG' ]
-            Traits:
-                Compulsion/Xenophobia: -100
-                Reputation: -50
-                Wealth: 50
-                CHOICE:
-                    limit: 2
-                    value: 50
-                    list: [ 'Ambidextrous', 'Attractive', 'Exeption Attribute/Any', 'Fast Learner', 'G-Tolerance', 'Good Hearing', 'Good Vision', 'Implant/Prosthetics', 'Pain Resistance', 'Toughness' ]
-            Skills:
-                Navigation/Space: 15
-                Survival: 10
-                Zero-G Operations: 15
-                CHOICE:
-                    limit: 2
-                    value: 10
-                    list: [ 'Driving', 'Interest/Any', 'Language/Any', 'Medtech', 'Piloting/Any', 'Sensor Operations', 'Technician/Any' ]
+            Fixed XP:
+                Attributes:
+                    STR: -25
+                    BOD: -25
+                    EXTRA:
+                        value: 100
+                        limit: 1
+                        exception: [ 'CHA', 'EDG' ]
+                Traits:
+                    Compulsion/Xenophobia: -100
+                    Reputation: -50
+                    Wealth: 50
+                    CHOICE:
+                        limit: 2
+                        value: 50
+                        list: [ 'Ambidextrous', 'Attractive', 'Exeption Attribute/Any', 'Fast Learner', 'G-Tolerance', 'Good Hearing', 'Good Vision', 'Implant/Prosthetics', 'Pain Resistance', 'Toughness' ]
+                Skills:
+                    Navigation/Space: 15
+                    Survival: 10
+                    Zero-G Operations: 15
+                    CHOICE:
+                        limit: 2
+                        value: 10
+                        list: [ 'Driving', 'Interest/Any', 'Language/Any', 'Medtech', 'Piloting/Any', 'Sensor Operations', 'Technician/Any' ]
 
 
 

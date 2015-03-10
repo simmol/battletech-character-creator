@@ -19,12 +19,14 @@ def get_base_attributes():
 
 class Player():
 
-    def __init__( self, name ):
+    def __init__( self, name, start_xp = 4150 ):
         self.name = name
         self.age  = 16
+        self.xp_pool = start_xp
+
         self.attributes = get_base_attributes()
         self.traits     = {}
-        self.skills     = {}
+        self.skills     = { 'Language/English':20, 'Perception':10, 'Language/Affiliation': 20 }
 
     def __getitem__( self, name ):
         return getattr( self, name )
@@ -34,7 +36,7 @@ class Player():
 
     def get( self, name, default = None ):
         try:
-            return getattr(self, name)
+            return getattr( self, name )
         except AttributeError:
             return default
 
@@ -42,18 +44,19 @@ class Player():
 
 class Calculator():
 
-    def __init__( self, player ):
-        self.base   = player
-        self.player = deepcopy( player ) # We make a copy of the player, so we don't make accidental override
+    def __init__( self, the_player ):
+        self.base   = the_player
+        self.player = deepcopy( the_player ) # We make a copy of the player, so we don't make accidental override
 
         self.life_modules = []
 
     def calculate_module( self, module ):
+        """ Calculate accumulation of stats for the module: Attributes, Traits and Skills """
 
         for key in ["Attributes", "Traits", "Skills"]:
-            stats = module.get(key, None)
+            stats = module.get( key, None )
             if not stats:
-                return
+                continue
 
             for stat, value in stats.iteritems():
                 if not isinstance( value, dict ):
@@ -61,7 +64,7 @@ class Calculator():
 
 
     def apply_changes( self ):
-        """ We override """
+        """ We apply the changes to the real Player object """
         self.base.attributes = self.player.attributes
         self.base.traits     = self.player.traits
         self.base.skills     = self.player.skills
@@ -70,8 +73,13 @@ class Calculator():
 
 def calc( base, module ):
 
+    # Extract module cost
+    print "Module cost: %s" % ( module.get( 'cost', 0 ) )
+    base.xp_pool = base.xp_pool - module.get( 'cost', 0 )
+
     calculator = Calculator( base )
-    calculator.calculate_module( module )
+    calculator.calculate_module( module['Fixed XP'] )
+
 
     # Set the calculated changes in the Player object
     calculator.apply_changes()
@@ -81,8 +89,8 @@ def calc( base, module ):
 # Base
 #
 
-
 player = Player( "Simmol" )
+
 
 # TODO Collect in player - Flexible XP categorized by from where it comes and how should be used
 # So we can provide a step to distribute it after all basic XP is calculated
@@ -106,7 +114,7 @@ sub_affiliation = affiliation['Sub-Affiliations'][sub_affiliation_choice]
 
 
 # Affiliation
-calc( player, affiliation['Fixed XP'] )
+calc( player, affiliation )
 
 # Sub-Affiliation
 calc( player, sub_affiliation )
@@ -122,7 +130,7 @@ with open( 'data/early_childhood.yaml', 'r' ) as f:
 early_childhood_choice = "BLUE COLLAR"
 early_childhood = early_childhoods[early_childhood_choice]
 
-calc( player, early_childhood['Fixed XP'] )
+calc( player, early_childhood )
 
 #
 # STAGE 2 - Late Childhood
@@ -135,7 +143,7 @@ with open( 'data/late_childhood.yaml', 'r' ) as f:
 late_childhood_choice = "SPACER FAMILY"
 late_childhood = late_childhoods[late_childhood_choice]
 
-calc( player, late_childhood['Fixed XP'] )
+calc( player, late_childhood )
 
 #
 # STAGE 3 - HIGHER EDUCATION
@@ -154,8 +162,18 @@ basic_field     = "Basic Training ( Naval )" # XXX Required
 advanced_field  = "Technician/Military" # XXX Required
 special_field   = "Technician/Vehicle" # XXX Optional Can be one from Advanced or Special fields
 
-calc( player, higher_education['Automatic'] )
-# TODO Implement Fields and There skills
+calc( player, higher_education )
+# TODO Implement Fields and their skills
+
+with open( 'data/master_fields_list.yaml', 'r' ) as f:
+    master_fields_list = yaml.load( f )
+
+calc( player, master_fields_list[basic_field] )
+calc( player, master_fields_list[advanced_field] )
+
+if special_field: # This one may be missing
+    calc( player, master_fields_list[special_field] )
+
 
 # TODO Calc Age based on how much and what fields are selected
 
@@ -170,19 +188,20 @@ with open( 'data/real_life.yaml', 'r' ) as f:
 real_life_choice = "TOUR OF DUTY"
 real_life = real_life_modules[real_life_choice]
 
-calc( player, real_life['Fixed XP'] )
+calc( player, real_life )
 
 # XXX For now handle it as special case
 if real_life_choice == "TOUR OF DUTY": # See what part of the data to use based on choosen "Affiliation type"
-    calc( player, real_life[ affiliation['category'] ] )
+    calc( player, real_life[affiliation['category']] )
 
 
 ###
 ### Print
 ###
-print "Name: ", player.get("name")
-print "Age: ", player.get("age")
-print "Attributes", player.get("attributes")
-print "Traits", player.get("traits")
-print "Skills", player.get("skills")
+print "Name: ", player.get( "name" )
+print "Age: ", player.get( "age" )
+print "XP Pool: ", player.get( "xp_pool" )
+print "Attributes", player.get( "attributes" )
+print "Traits", player.get( "traits" )
+print "Skills", player.get( "skills" )
 

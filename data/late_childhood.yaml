@@ -1,5 +1,5 @@
 SPACER FAMILY:
-    Module Cost: 490
+    cost: 490
     Description: "The child of a spacer family is raised in the low-gravity and sterilized-atmosphere world of DropShips and JumpShips, rarely setting foot on planets long enough to take root. Characters from this background tend to be a little more insular toward outsiders, but are in their element when out in the \"black sea\"."
     Prerequisites:
         Attributes:
@@ -33,7 +33,7 @@ SPACER FAMILY:
             Piloting/Spacecraft: 15
             Sensor Operations: 15
             Technician/Aeronautics: 20
-            Technician/Electronic: 20
+            Technician/Electronics: 20
             Zero-G Operations: 15
     Flexible XP:
         value: 75
