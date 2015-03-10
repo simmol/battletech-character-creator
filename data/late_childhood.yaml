@@ -1,7 +1,7 @@
 SPACER FAMILY:
     cost: 490
     Description: "The child of a spacer family is raised in the low-gravity and sterilized-atmosphere world of DropShips and JumpShips, rarely setting foot on planets long enough to take root. Characters from this background tend to be a little more insular toward outsiders, but are in their element when out in the \"black sea\"."
-    Prerequisites:
+    requires:
         Attributes:
             RFL: 4
             DEX: 4
@@ -38,4 +38,3 @@ SPACER FAMILY:
     Flexible XP:
         value: 75
         skills: 100
-

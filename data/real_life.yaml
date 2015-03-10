@@ -1,10 +1,10 @@
 TOUR OF DUTY:
     cost: 700
     Description: "In the war-torn BattleTech universe, soldiers and warriors risk their lives every day on the battlefield. Whether they do so for lord or Clan, for country or money, their lives are often spent in long, dull stretches on guard - punctuated by the relentless panic that only incoming fire can bring."
-    Prerequisites:
+    requires:
         Military Skill Field:
             amount: 1
-    Age: 3
+    age: 3
     Fixed XP:
         Traits:
             Connections: 25
@@ -17,11 +17,12 @@ TOUR OF DUTY:
             Martial Arts: 40
             Navigation/Any: 40
             Protocol/Affiliation: 40
-    Flexible XP: 100
+    Flexible XP:
+        value: 100
     Periphery:
         Fixed XP:
             Attributes:
-                EXTRA:
+                CHOICE:
                     limit: 1
                     value: 50
             Traits:
@@ -33,7 +34,7 @@ TOUR OF DUTY:
                 MedTech: 30
                 Negotiation: 25
                 Perception: 15
-                EXTRA:
+                CHOICE:
                     limit: 6
                     value: 25
                     requirement: Military Field
@@ -41,7 +42,7 @@ TOUR OF DUTY:
         cost: 100
         Fixed XP:
             Attributes:
-                EXTRA:
+                CHOICE:
                     limit: 2
                     value: 50
             Traits:
@@ -60,7 +61,7 @@ TOUR OF DUTY:
                 Martial Arts: 10
                 MedTech: 20
                 Perception: 20
-                EXTRA:
+                CHOICE:
                     limit: 7
                     value: 25
                     requirement: Military Field
@@ -69,7 +70,7 @@ TOUR OF DUTY:
         cost: 300
         Fixed XP:
             Attributes:
-                EXTRA:
+                CHOICE:
                     limit: 2
                     value: 75
             Traits:
@@ -86,17 +87,7 @@ TOUR OF DUTY:
                 Interest/Any: 20
                 Perception: 20
                 Technician/Any: 10
-                EXTRA:
+                CHOICE:
                     limit: 10
                     value: 25
                     requirement: Military Field
-
-
-
-
-
-
-
-
-
-

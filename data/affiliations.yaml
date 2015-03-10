@@ -8,7 +8,7 @@ Terran:
         Attributes:
             INT: 100
             EDG: -150
-            EXTRA:
+            CHOICE:
                 value: 50
                 limit: 2
                 exception: [ 'INT', 'EDG' ]
@@ -24,7 +24,7 @@ Terran:
                 Attributes:
                     STR: -25
                     BOD: -25
-                    EXTRA:
+                    CHOICE:
                         value: 100
                         limit: 1
                         exception: [ 'CHA', 'EDG' ]
@@ -44,10 +44,3 @@ Terran:
                         limit: 2
                         value: 10
                         list: [ 'Driving', 'Interest/Any', 'Language/Any', 'Medtech', 'Piloting/Any', 'Sensor Operations', 'Technician/Any' ]
-
-
-
-
-
-
-

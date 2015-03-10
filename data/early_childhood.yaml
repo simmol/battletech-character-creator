@@ -1,8 +1,6 @@
 BLUE COLLAR:
-    name: Blue Collar
     cost: 210
     Description: "The common folk of most thriving commercial or industrialized worlds, characters from blue collar families have humble beginnings, but usually receive a solid education and even some vocational insights."
-    Prerequisites: None
     Fixed XP:
         Attributes:
             STR: 45
@@ -14,6 +12,6 @@ BLUE COLLAR:
         Skills:
             Career/Any: 10
             Interest/Any2: 5
-    Flexible XPs:
+    Flexible XP:
         value: 10
         limit: 4

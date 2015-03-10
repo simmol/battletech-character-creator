@@ -1,7 +1,7 @@
 Military Enlistment:
+    type: "Military"
     cost: 720
     Description: "Where military academies represent the upper crust of military training, military enlistment represents the much more common standard, employed by interstellar realms and individual worlds alike to train the majority of their ground troops. Focused on conventional forces, such as infantry and cavalry, these training centers - found on any world or in any realm that maintains a standing defense force - lack the sophisticated training programs that turn out MechWarriors and aerospace fighter pilots, but still produce quality support troops for any army."
-    Prerequisites: None
     Fixed XP:
         Attributes:
             STR: 125
@@ -14,8 +14,8 @@ Military Enlistment:
             Rank: 100
         Skills:
             Swimming: 20
-        Flexible XP:
-            value: 200
+    Flexible XP:
+        value: 200
     Fields:
         Basic:
             age: 0.5
@@ -42,4 +42,3 @@ Military Enlistment:
                 Technician/Aerospace
                 Technician/Mech
                 Technician/Vehicle
-

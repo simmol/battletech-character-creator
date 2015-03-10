@@ -1,7 +1,7 @@
 Basic Training ( Naval ):
-    Military: True
     cost: 180
-    rebate: 36
+    Flexible XP:
+        value: 36
     requires:
         Attributes:
             INT: 4
@@ -23,9 +23,9 @@ Basic Training ( Naval ):
 
 
 Technician/Military:
-    Military: True
     cost: 180
-    rebate: 36
+    Flexible XP:
+        value: 36
     requires:
         Attributes:
             INT: 3
@@ -41,10 +41,9 @@ Technician/Military:
 
 
 Technician/Vehicle:
-    Military: True
-    Civilian: True
     cost: 120
-    rebate: 24
+    Flexible XP:
+        value: 24
     requires:
         Attributes:
             INT: 4
@@ -54,4 +53,3 @@ Technician/Vehicle:
             Technician/Electronics: 30
             Technician/Mechanical: 30
             Technician/Nuclear: 30
-
