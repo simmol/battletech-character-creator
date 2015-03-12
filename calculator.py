@@ -4,25 +4,27 @@ TODO Should look later into this how can be re-factored and made more stable
 For now this is as straight forward as possible
 """
 
+# TODO Collect in player - Flexible XP categorized by from where it comes and how should be used
+# So we can provide a step to distribute it after all basic XP is calculated
+# TODO Handle Flexible XP requirements
+# TODO Implement Life Module selection steps
+
+
+
 import yaml
-from copy import copy, deepcopy
-from collections import OrderedDict
+from copy import deepcopy
+
+from load_data import get_affiliations, get_early_childhoods, get_late_childhoods, get_higher_education, get_master_fields_list, get_real_life_modules, get_base_attributes
 
 
-def get_base_attributes():
-    # Get base stats and values
-    with open( 'data/base_stats.yaml', 'r' ) as ff:
-        attributes = yaml.load( ff )
-
-    return attributes
 
 def collect_skill_names( base, module ):
     for skill, value in  module['Fixed XP']['Skills'].iteritems():
         if 'CHOICE' in skill:
             for key in value['list']:
-                military_skills.append( key )
+                base.append( key )
         else:
-            military_skills.append( skill )
+            base.append( skill )
 
 
 class Player():
@@ -65,7 +67,7 @@ class Player():
 
 
     def normalize_character_stats( self ):
-        """ At the end of character creation no Attribute should be below 1 
+        """ At the end of character creation no Attribute should be below 1
             The idea is to up the character Stats to at least 1 using Flexible XP and left XP Pool
             This is mendatory step so we can make it automatic
         """
@@ -135,66 +137,121 @@ def calc( base, module ):
                 base.flexible_xp[key] = base.flexible_xp[key] + module_flexible_xp.get( key, 0 )
 
 
+class LifeModules():
+
+    def __init__( self ):
+        self.affiliation        = None
+        self.sub_affiliation    = None
+        self.early_childhood    = None
+        self.late_childhood     = None
+        self.higher_education   = None
+        self.real_life          = []
+
+        self.military_skills    = []
+
+
+    def calculate_affiliation( self, affiliation_choice ):
+        # Affiliation
+        affiliations = get_affiliations()
+        self.affiliation = affiliations[affiliation_choice]
+
+        calc( player, self.affiliation )
+
+
+    def calculate_sub_affiliation( self, affiliation_choice, sub_affiliation_choice ):
+        # Sub-Affiliation
+        affiliations = get_affiliations()
+        affiliation = affiliations[affiliation_choice]
+
+        self.sub_affiliation = affiliation['Sub-Affiliations'][sub_affiliation_choice]
+        calc( player, self.sub_affiliation )
+
+
+    def calculate_early_childhood( self, early_childhood_choice ):
+
+        early_childhoods = get_early_childhoods()
+        self.early_childhood = early_childhoods[early_childhood_choice]
+
+        calc( player, self.early_childhood )
+
+
+    def calculate_late_childhood( self, late_childhood_choice ):
+        late_childhoods = get_late_childhoods()
+        self.late_childhood = late_childhoods[late_childhood_choice]
+
+        calc( player, self.late_childhood )
+
+
+    def calculate_higher_education( self, higher_education_choice, field_choices ):
+        higher_educations = get_higher_education()
+        self.higher_education = higher_educations[higher_education_choice]
+
+        calc( player, self.higher_education )
+
+
+        # Calculate Choosen Fields Skill earned and age
+        # Only 3 fields per School
+        basic_field     = field_choices['basic']                # "Basic Training ( Naval )" # XXX Required
+        advanced_field  = field_choices['advanced']             # "Technician/Military" # XXX Required
+        special_field   = field_choices.get('special', None)    # "Technician/Vehicle" # XXX Optional Can be one from Advanced or Special fields
+
+        master_fields_list = get_master_fields_list()
+
+        calc( player, master_fields_list[basic_field] )
+        calc( player, master_fields_list[advanced_field] )
+
+        player.age = player.age + self.higher_education['Fields']['Basic']['age']
+        player.age = player.age + self.higher_education['Fields']['Advanced']['age']
+
+        if special_field: # This one may be missing
+            calc( player, master_fields_list[special_field] )
+            player.age = player.age + self.higher_education['Fields']['Special']['age']
+
+
+        # Collect Military and Civilian Skills based on Choosen Fields
+        if self.higher_education['type'] == "Military":
+            collect_skill_names( self.military_skills, master_fields_list[basic_field] )
+            collect_skill_names( self.military_skills, master_fields_list[advanced_field] )
+            collect_skill_names( self.military_skills, master_fields_list[special_field] )
+
+
+    def calculate_real_life_module( self, real_life_choice ):
+        real_life_modules = get_real_life_modules()
+
+        real_life = real_life_modules[real_life_choice]
+        self.real_life.append( real_life )
+
+        calc( player, real_life )
+        player.age = player.age + real_life['age']
+
+        # XXX For now handle it as special case
+        if real_life_choice == "TOUR OF DUTY": # See what part of the data to use based on choosen "Affiliation type"
+            calc( player, real_life[self.affiliation['category']] )
 
 #
 # Base
 #
 
 player = Player( "Simmol" )
-
-
-# TODO Collect in player - Flexible XP categorized by from where it comes and how should be used
-# So we can provide a step to distribute it after all basic XP is calculated
-# TODO Handle Flexible XP requirements
-
-
-# TODO Implement Life Module selection steps
+life_modules = LifeModules()
 
 #
 # STAGE 0 - Affiliation
 #
 
-# Get Affiliations data
-with open( 'data/affiliations.yaml', 'r' ) as f:
-    affiliations = yaml.load( f )
-
-affiliation_choice = "Terran"
-affiliation = affiliations[affiliation_choice]
-
-sub_affiliation_choice = 'Belter'
-sub_affiliation = affiliation['Sub-Affiliations'][sub_affiliation_choice]
-
-# Affiliation
-calc( player, affiliation )
-
-# Sub-Affiliation
-calc( player, sub_affiliation )
+life_modules.calculate_affiliation('TERRAN')
 
 #
 # STAGE 1 - Early Childhood
 #
 
-# Get Early Childhood
-with open( 'data/early_childhood.yaml', 'r' ) as f:
-    early_childhoods = yaml.load( f )
-
-early_childhood_choice = "BLUE COLLAR"
-early_childhood = early_childhoods[early_childhood_choice]
-
-calc( player, early_childhood )
+life_modules.calculate_early_childhood('BLUE COLLAR')
 
 #
 # STAGE 2 - Late Childhood
 #
 
-# Get Late Childhood data
-with open( 'data/late_childhood.yaml', 'r' ) as f:
-    late_childhoods = yaml.load( f )
-
-late_childhood_choice = "SPACER FAMILY"
-late_childhood = late_childhoods[late_childhood_choice]
-
-calc( player, late_childhood )
+life_modules.calculate_late_childhood('SPACER FAMILY')
 
 #
 # STAGE 3 - HIGHER EDUCATION
@@ -202,58 +259,20 @@ calc( player, late_childhood )
 # TODO Each "TYPE" of module ( School ) in this stage can be taken 1 time to accumulate 3 modules
 # Example: player can pick one "Military",  one "Civilian" and one "Intelligence/Police School"
 
-with open( 'data/higher_education.yaml', 'r' ) as f:
-    higher_educations = yaml.load( f )
-
-higher_education_choice = "Military Enlistment"
-higher_education = higher_educations[higher_education_choice]
-
-# Only 3 fields per School
-basic_field     = "Basic Training ( Naval )" # XXX Required
-advanced_field  = "Technician/Military" # XXX Required
-special_field   = "Technician/Vehicle" # XXX Optional Can be one from Advanced or Special fields
-
-calc( player, higher_education )
-
-# Calculate Choosen Fields Skill earned and age
-with open( 'data/master_fields_list.yaml', 'r' ) as f:
-    master_fields_list = yaml.load( f )
-
-calc( player, master_fields_list[basic_field] )
-calc( player, master_fields_list[advanced_field] )
-
-player.age = player.age + higher_education['Fields']['Basic']['age']
-player.age = player.age + higher_education['Fields']['Advanced']['age']
-
-if special_field: # This one may be missing
-    calc( player, master_fields_list[special_field] )
-    player.age = player.age + higher_education['Fields']['Special']['age']
-
-
-# Collect Military and Civilian Skills based on Choosen Fields
-military_skills = []
-if higher_education['type'] == "Military":
-    collect_skill_names( military_skills, master_fields_list[basic_field] )
-    collect_skill_names( military_skills, master_fields_list[advanced_field] )
-    collect_skill_names( military_skills, master_fields_list[special_field] )
-
+master_field_choices = {
+    'basic'     : "Basic Training ( Naval )",
+    'advanced'  : "Technician/Military",
+    'special'   : "Technician/Vehicle",
+}
+life_modules.calculate_higher_education('MILITARY ENLISTMENT', master_field_choices)
 
 #
 # STAGE 4 - Real Life
 #
+# TODO Each Real Life module can be taken multiple times, but no Fixed XP is applied if the module is taken before
 
-with open( 'data/real_life.yaml', 'r' ) as f:
-    real_life_modules = yaml.load( f )
+life_modules.calculate_real_life_module('TOUR OF DUTY')
 
-real_life_choice = "TOUR OF DUTY"
-real_life = real_life_modules[real_life_choice]
-
-calc( player, real_life )
-player.age = player.age + real_life['age']
-
-# XXX For now handle it as special case
-if real_life_choice == "TOUR OF DUTY": # See what part of the data to use based on choosen "Affiliation type"
-    calc( player, real_life[affiliation['category']] )
 
 
 ###
