@@ -1,0 +1,8 @@
+Name:  Simmol
+Age:  22.0
+XP Pool:  1210
+Attributes {'DEX': 180, 'CHA': 190, 'EDG': -50, 'INT': 225, 'WIL': 190, 'STR': 250, 'BOD': 255, 'RFL': 240}
+Traits {'G-Tolerance': 40, 'Natural Aptitude/Zero-G Operations': 20, 'Rank': 150, 'Connections': 25, 'Reputation': 100, 'Introvert': -25, 'Equipped': 70, 'Compulsion/Distrust of Non-Terrans': -75}
+Skills {'Appraisal': 30, 'MedTech': 50, 'Navigation/Any': 40, 'Zero-G Operations': 45, 'Interest/Any2': 5, 'Technician/Aeronautics': 20, 'Communications/Conventional': 20, 'Perception': 45, 'Interest/Any': 15, 'Technician/Weapons': 30, 'Protocol/Affiliation': 40, 'Piloting/Spacecraft': 15, 'Leadership': 15, 'Sensor Operations': 15, 'Career/Technician': 30, 'Career/Ship Crew': 30, 'Technician/Nuclear': 60, 'Computers': 50, 'Language/Affiliation': 35, 'Gunnery/Spacecraft': 10, 'Language/English': 45, 'Small Arms': 30, 'Swimming': 20, 'Technician/Mechanical': 60, 'Career/Soldier': 50, 'Technician/Electronics': 80, 'Navigation/Space': 50, 'Language/Any': 30, 'Martial Arts': 80, 'Career/Any': 10}
+Flexible XP {'skills': 100, 'attributes': 0, 'special': [{'limit': 4, 'value': 10}], 'value': 471, 'traits': 0}
+Choices:  {'Skills': [{'limit': 1, 'list': ['Career/Pilot', 'Career/Ship Crew'], 'value': 30}, {'requirement': 'Military Field', 'limit': 7, 'value': 25}], 'Attributes': [{'exception': ['INT', 'EDG'], 'limit': 2, 'value': 50}, {'limit': 2, 'value': 50}], 'Traits': [{'list': ['Equipped', 'Vehicle'], 'limit': 1, 'value': 100}, {'limit': 1, 'list': ['Compulsion/Any Addiction', 'Unlucky'], 'value': -50}, {'limit': 1, 'list': ['Equipped', 'Vehicle'], 'value': 100}]}
